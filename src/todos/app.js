@@ -33,6 +33,15 @@ export const App = (elementId) => {
     newDescriptionInput.value = "";
   });
   todoListUl.addEventListener("click", (event) => {
+    //Delete Element
+    if (event.target.matches(".destroy")) {
+      todoStore.deleteTodo(
+        event.target.closest("[data-id]").getAttribute("data-id")
+      );
+      displayTodos();
+      return;
+    }
+    //Toggle Element completed
     const element = event.target.closest("[data-id]");
     if (!element) return;
     todoStore.toggleTodo(element.getAttribute("data-id"));
