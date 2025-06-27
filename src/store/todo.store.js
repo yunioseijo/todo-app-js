@@ -19,4 +19,35 @@ const initStore = () => {
   console.log("initStore 🥑 ");
   return state;
 };
-export default { initStore };
+
+const loadStore = () => {
+  throw new Error("Method not implemented. Please implement this method.");
+};
+const addTodo = (description) => {
+  throw new Error("Method not implemented. Please implement this method.");
+};
+const toggleTodo = (todoId) => {
+  throw new Error("Method not implemented. Please implement this method.");
+};
+const deleteTodo = (todoId) => {
+  throw new Error("Method not implemented. Please implement this method.");
+};
+const deleteCompleted = () => {
+  throw new Error("Method not implemented. Please implement this method.");
+};
+const setFilter = (newFilter = Filters.All) => {
+  throw new Error("Method not implemented. Please implement this method.");
+};
+const getCurrentFilter = () => {
+  throw new Error("Method not implemented. Please implement this method.");
+};
+export default {
+  addTodo,
+  deleteCompleted,
+  deleteTodo,
+  getCurrentFilter,
+  initStore,
+  loadStore,
+  setFilter,
+  toggleTodo,
+};
