@@ -1,5 +1,5 @@
 import { Todo } from "../todos/models/todo";
-const Filters = {
+export const Filters = {
   All: "all",
   Completed: "completed",
   Pending: "active",
@@ -17,13 +17,22 @@ const state = {
 };
 
 const initStore = () => {
-  console.log(state);
   console.log("initStore 🥑 ");
-  return state;
+  loadStore();
+  // return state;
+};
+
+const saveStateToLocalStorage = () => {
+  console.log("saveStateToLocalStorage 🥑 ", state);
+  localStorage.setItem("state", JSON.stringify(state));
 };
 
 const loadStore = () => {
-  throw new Error("Method not implemented. Please implement this method.");
+  const storage = localStorage.getItem("state");
+  if (!storage) return;
+  const { todos, filter } = JSON.parse(storage);
+  state.todos = todos;
+  state.filter = filter;
 };
 /**
  * Returns the filtered list of todo items.
@@ -51,6 +60,7 @@ const getTodos = (filter = Filters.All) => {
 const addTodo = (description) => {
   if (!description) throw new Error("Description is required");
   state.todos.push(new Todo(description));
+  saveStateToLocalStorage();
 };
 /**
  * Toggles a todo item as done or not done.
@@ -60,6 +70,7 @@ const addTodo = (description) => {
 const toggleTodo = (todoId) => {
   const todo = state.todos.find((todo) => todo.id === todoId);
   todo.done = !todo.done;
+  saveStateToLocalStorage();
 };
 /**
  * Deletes a todo item from the state.
@@ -68,9 +79,11 @@ const toggleTodo = (todoId) => {
 
 const deleteTodo = (todoId) => {
   state.todos = state.todos.filter((todo) => todo.id !== todoId);
+  saveStateToLocalStorage();
 };
 const deleteCompleted = () => {
-  state.todos = state.todos.filter((todo) => todo.done);
+  state.todos = state.todos.filter((todo) => !todo.done);
+  saveStateToLocalStorage();
 };
 /**
  * Sets the filter to be used in the application.
@@ -80,6 +93,7 @@ const setFilter = (newFilter = Filters.All) => {
   if (Object.values(Filters).includes(newFilter) === false)
     throw new Error(`Unknown filter: ${newFilter}`);
   state.filter = newFilter;
+  saveStateToLocalStorage();
 };
 const getCurrentFilter = () => {
   return state.filter;
@@ -88,6 +102,7 @@ export default {
   addTodo,
   deleteCompleted,
   deleteTodo,
+  Filters,
   getCurrentFilter,
   getTodos,
   initStore,

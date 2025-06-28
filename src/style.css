@@ -311,6 +311,7 @@ body {
 	text-decoration: none;
 	border: 1px solid transparent;
 	border-radius: 3px;
+	transition: filter 0.3s ease-in-out;
 }
 
 .filters li a:hover {
@@ -319,6 +320,8 @@ body {
 
 .filters li a.selected {
 	border-color: rgba(175, 47, 47, 0.2);
+	box-shadow: rgba(253, 76, 0, 0.5) 0 3px 8px;
+	
 }
 
 .clear-completed,
